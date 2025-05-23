@@ -4,3 +4,5 @@
 ## 23-05-2025
 -Project initiated
 -Sorted Embedding and indexing
+-Implemented search.py
+-Improved Stream-lit functionality
