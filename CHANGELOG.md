@@ -6,3 +6,7 @@
 -Sorted Embedding and indexing
 -Implemented search.py
 -Improved Stream-lit functionality
+
+## 24-05-2025
+-Integration of groq api
+-Inheritance of llama3-70b

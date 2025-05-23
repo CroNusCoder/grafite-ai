@@ -5,7 +5,7 @@ import streamlit as st
 from retrieval.search import search_query  # <- Tumhara function import
 from config import TOP_K
 
-st.title("Grafite AI v2.0 — JEE/NEET Question Search")
+st.title("Grafite AI — JEE/NEET Question Search")
 
 # User query input
 query = st.text_input("Enter your JEE/NEET question")
