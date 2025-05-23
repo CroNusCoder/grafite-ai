@@ -1,34 +1,21 @@
-from sentence_transformers import SentenceTransformer
-import faiss
-import numpy as np
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import streamlit as st
+from retrieval.search import search_query  # <- Tumhara function import
+from config import TOP_K
 
-# Load model
-model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+st.title("Grafite AI v2.0 — JEE/NEET Question Search")
 
-# Sample JEE/NEET questions
-questions = [
-    "What is the value of g on the surface of Mars?",
-    "Find the derivative of sin(x) + cos(x)",
-    "How to find the focal length of a convex lens?",
-    "Explain the Bohr model of atom",
-    "What is the difference between mitosis and meiosis?"
-]
-
-# Create embeddings
-embeddings = model.encode(questions)
-
-# Build FAISS index
-dimension = embeddings.shape[1]
-index = faiss.IndexFlatL2(dimension)
-index.add(np.array(embeddings))
-
-# Streamlit UI
-st.title("GrafiteAI - JEE/NEET Question Helper")
-query = st.text_input("Enter your question:")
+# User query input
+query = st.text_input("Enter your JEE/NEET question")
 
 if query:
-    q_embedding = model.encode([query])
-    D, I = index.search(np.array(q_embedding), k=1)
-    st.subheader("Most Similar Question Found:")
-    st.write(questions[I[0][0]])
+    st.write("Searching similar questions...")
+    results = search_query(query, top_k=TOP_K)
+
+    st.subheader("Top Results:")
+    for i, match in enumerate(results, 1):
+        st.markdown(f"**Top {i} Result:**")
+        st.markdown(f"**Question:** {match['question']}")
+        st.markdown(f"**Answer:** {match['answer'] if match['answer'] else 'No answer available'}")
