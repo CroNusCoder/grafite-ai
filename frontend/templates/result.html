@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GrafiteAI - Result</title>
+</head>
+<body>
+    <h1>GrafiteAI - Solution</h1>
+    
+    <h2>Your Question:</h2>
+    <p>{{ query }}</p>
+
+    <h2>AI's Step-by-Step Guidance:</h2>
+    <pre>{{ response }}</pre>
+
+    <h2>Matched Example Questions:</h2>
+    <ul>
+        {% for example in matched %}
+        <li>{{ example }}</li>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <a href="/">Ask Another Question</a>
+</body>
+</html>

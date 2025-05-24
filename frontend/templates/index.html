@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grafite Build Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-black text-white min-h-screen relative overflow-x-hidden">
+
+  <!-- Background Gradient -->
+  <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-[#0f1f2f] via-transparent to-transparent opacity-80 pointer-events-none"></div>
+
+  <!-- Header -->
+  <header class="flex justify-between items-center p-4 max-w-7xl mx-auto relative z-10">
+    <div class="flex items-center space-x-2">
+      <span class="font-extrabold italic text-white text-lg select-none">grafite</span>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex flex-col items-center justify-center text-center px-4 max-w-3xl mx-auto relative z-10 mt-20 sm:mt-32">
+    <h1 class="text-white font-extrabold text-3xl sm:text-4xl mb-8 max-w-xl">
+      GrafiteAI - Your Smart Tutor
+    </h1>
+
+    <!-- Form -->
+    <form class="w-full max-w-xl" id="askForm">
+      <textarea id="questionInput"
+        class="w-full bg-[#111111] border border-[#222222] rounded-md p-4 text-gray-500 placeholder-gray-600 resize-none focus:outline-none focus:ring-1 focus:ring-blue-600 transition"
+        placeholder="How can Grafite help you today?" rows="4"></textarea>
+      <div class="flex space-x-3 mt-2 text-gray-600 text-sm px-1">
+        <button type="submit"
+          class="text-white bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded shadow">
+          Ask Grafite
+        </button>
+      </div>
+    </form>
+
+    <!-- Response Box -->
+    <div id="responseBox" class="mt-8 text-left max-w-xl mx-auto text-gray-300"></div>
+  </main>
+
+  <!-- JS -->
+  <script>
+    const form = document.getElementById("askForm");
+    const textarea = document.getElementById("questionInput");
+    const responseBox = document.getElementById("responseBox");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const query = textarea.value.trim();
+      if (!query) return;
+
+      responseBox.innerHTML = "<p class='text-blue-400'>Thinking...</p>";
+
+      try {
+        const res = await fetch("/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query }),
+        });
+
+        const data = await res.json();
+        responseBox.innerHTML = `
+          <h3 class="text-xl font-semibold mb-2">Grafite's Answer:</h3>
+          <p class="whitespace-pre-line">${data.response}</p>
+        `;
+      } catch (error) {
+        responseBox.innerHTML = "<p class='text-red-400'>Something went wrong. Please try again.</p>";
+      }
+    });
+  </script>
+
+</body>
+</html>
