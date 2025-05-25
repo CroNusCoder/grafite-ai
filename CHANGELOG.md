@@ -2,17 +2,19 @@
 
 
 ## 23-05-2025
--Project initiated
--Sorted Embedding and indexing
--Implemented search.py
--Improved Stream-lit functionality
+-Project initiated.
+-Sorted Embedding and indexing.
+-Implemented search.py.
+-Improved Stream-lit functionality.
 
 ## 24-05-2025
--Integration of groq api
--Inheritance of llama3-70b
+-Integration of groq api.
+-Inheritance of llama3-70b.
 
 ## 24-05-2025
--Improved search query
--Added responses to flask
--Improved UI
+-Improved search query.
+-Added responses to flask.
+-Improved UI.
+-Fixed output Bugs.
+-Focused on integration of Frontend with Backend.
 Note:- Have to work on responses.
