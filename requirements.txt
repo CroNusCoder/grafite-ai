@@ -4,3 +4,9 @@ numpy
 faiss-cpu
 sentence-transformers
 scikit-learn
+flask
+sentence-transformers
+faiss-cpu
+numpy
+pandas
+gunicorn
